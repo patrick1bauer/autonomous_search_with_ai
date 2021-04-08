@@ -125,7 +125,7 @@ class TurtlebotCheckpoints():
         drones = 5 # Number of drones
         searchArea = [-38, -38, 102, 38] #[startX, startY, endX, endY]
         droneIndex = 0 # Drone ID in the swarm 0-delineated
-        step = 5 # step size for the search grid (in meters)
+        step = 5 # step size for the search grid
 
         offset = 1 / drones * (searchArea[2] - searchArea[0])
         droneSearchArea = [droneIndex * offset + startX, startY, (droneindex + 1) * offset + startX, endY]

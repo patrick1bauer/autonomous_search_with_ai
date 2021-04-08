@@ -81,6 +81,14 @@ catkin_make
 source devel/setup.bash
 ```
 
+6. Create a python virtual environment
+```bash
+sudo apt-get update
+sudo apt-get install python-virtualenv
+cd ~/
+https://www.liquidweb.com/kb/creating-virtual-environment-ubuntu-16-04/
+```
+
 ## Usage
 
 Terminal #1: Launch the simulation
