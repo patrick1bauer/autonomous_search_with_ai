@@ -1,5 +1,23 @@
 #!/usr/bin/env python
 
+""" turtlebot_checkpoints.py - Version 1.1 2013-12-20
+    Command a robot to move to checkpoints using move_base actions..
+    Based on the Pi Robot Project: http://www.pirobot.org
+    Copyright (c) 2012 Patrick Goebel.  All rights reserved.
+    This program is free software; you can redistribute it and/or modify
+    it under the terms of the GNU General Public License as published by
+    the Free Software Foundation; either version 2 of the License, or
+    (at your option) any later version.5
+    
+    This program is distributed in the hope that it will be useful,
+    but WITHOUT ANY WARRANTY; without even the implied warranty of
+    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+    GNU General Public License for more details at:
+    
+    http://www.gnu.org/licenses/gpl.htmlPoint
+      
+"""
+
 import rospy
 import actionlib
 from actionlib_msgs.msg import *
@@ -31,14 +49,14 @@ class TurtlebotCheckpoints():
             quaternions.append(q)
         
         # Create a list to hold the waypoint poses
-        waypoints = list()
+        waypoints = self.createWaypoints()
         
         # Append each of the four waypoints to the list.  Each waypoint
         # is a pose consisting of a position and orientation in the map frame.
-        waypoints.append(Pose(Point(-1.58, 1.58, 0.0), quaternions[0]))
-        waypoints.append(Pose(Point(1.58, 1.67, 0.0), quaternions[1]))
-        waypoints.append(Pose(Point(0.47, -0.49, 0.0), quaternions[2]))
-        waypoints.append(Pose(Point(-1.57, 0.54, 0.0), quaternions[3]))
+        waypoints.append(Pose(Point(0.054, 2, 0.0), quaternions[0]))
+        waypoints.append(Pose(Point(0.288, 1, 0.0), quaternions[1]))
+        waypoints.append(Pose(Point(-0.303, -0.303, 0.0), quaternions[2]))
+        waypoints.append(Pose(Point(-0.011, -0.033, 0.0), quaternions[3]))
         
         # Initialize the visualization markers for RViz
         self.init_markers()
@@ -57,8 +75,8 @@ class TurtlebotCheckpoints():
         
         rospy.loginfo("Waiting for move_base action server...")
         
-        # Wait 20 seconds for the action server to become available
-        self.move_base.wait_for_server(rospy.Duration(20))
+        # Wait 60 seconds for the action server to become available
+        self.move_base.wait_for_server(rospy.Duration(60))
         
         rospy.loginfo("Connected to move base server")
         rospy.loginfo("Starting navigation test")
@@ -95,7 +113,7 @@ class TurtlebotCheckpoints():
             self.move_base.send_goal(goal)
             
             # Allow 1 minute to get there
-            finished_within_time = self.move_base.wait_for_result(rospy.Duration(60)) 
+            finished_within_time = self.move_base.wait_for_result(rospy.Duration(180)) 
             
             # If we don't get there in time, abort the goal
             if not finished_within_time:
@@ -144,6 +162,44 @@ class TurtlebotCheckpoints():
         # Stop the robot
         self.cmd_vel_pub.publish(Twist())
         rospy.sleep(1)
+
+    def createWaypoints(self):
+
+        drones = 5 # Number of drones
+        #searchArea = [-38, -38, 102, 38]
+        searchArea = [-4, 3, 0, 1] #[startX, startY, endX, endY]
+        droneIndex = 0 # Drone ID in the swarm 0-delineated
+        step = 1 # step size for the search grid (in meters)
+
+        offset = 1 / drones * (searchArea[2] - searchArea[0])
+        droneSearchArea = [droneIndex * offset + searchArea[0], searchArea[1], (droneIndex + 1) * offset + searchArea[2], searchArea[3]]
+
+        XOffset = droneSearchArea[0]
+        YOffset = droneSearchArea[1]
+        XBound = droneSearchArea[2]
+        YBound = droneSearchArea[3]
+
+
+        
+        waypoints = list()
+        #return waypoints
+        # Loop through the grid to search and create waypoints
+        for xx in range(0, XBound, step):
+            for yy in range(0, YBound, step):
+                # Calculate the coordinates of the waypoint
+                waypointX = xx + XOffset
+                waypointY = (yy if xx%2 == 0 else (YBound - yy))
+                waypointZ = 0 # Always zero, turtlebots don't fly
+
+                # Calculate the orientation of the waypoint
+                waypointQuaternion = quaternion_from_euler(0, 0, 0 if xx%2 == 0 else pi, axes='sxyz')
+    
+
+                # Add the waypoint to the list
+                waypoints.append(Pose(Point(waypointX, waypointY, waypointZ), Quaternion(*waypointQuaternion)))
+        
+
+        return waypoints
 
 if __name__ == '__main__':
     try:
