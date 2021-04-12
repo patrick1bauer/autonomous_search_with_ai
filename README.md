@@ -84,9 +84,11 @@ source devel/setup.bash
 6. Create a python virtual environment
 ```bash
 sudo apt-get update
-sudo apt-get install python-virtualenv
-cd ~/
-https://www.liquidweb.com/kb/creating-virtual-environment-ubuntu-16-04/
+sudo apt-get install python3-venv
+cd ~/catkin_ws/src/autonomous_turtlebot3_swarm
+python3 -m venv python3-venv
+source python3-venv/bin/activate
+
 ```
 
 ## Usage
