@@ -7,12 +7,43 @@
         <arg name="world_name" value="$(find autonomous_turtlebot3_swarm)/worlds/my_small_city.world"/>
     </include>
 
+    <!-- Turtlebot3 Description -->
+    <param name="robot_description" command="$(find xacro)/xacro --inorder $(find autonomous_turtlebot3_swarm)/urdf/turtlebot3_waffle.urdf.xacro" />
+    
     <!-- Start Turtlebot 1 -->
-    <arg name="model" default="$(env TURTLEBOT3_MODEL)" doc="model type [burger, waffle, waffle_pi]"/>
-    <arg name="x_pos" default="-40.0"/>
-    <arg name="y_pos" default="-40.0"/>
-    <arg name="z_pos" default="0.0"/>
-    <param name="robot_description" command="$(find xacro)/xacro --inorder $(find turtlebot3_description)/urdf/turtlebot3_$(arg model).urdf.xacro" />
-    <node pkg="gazebo_ros" type="spawn_model" name="spawn_urdf"  args="-urdf -model turtlebot3_$(arg model) -x $(arg x_pos) -y $(arg y_pos) -z $(arg z_pos) -param robot_description" />
+    <group ns="robot1">
+        <param name="tf_prefix" value="robot1"/>
+        <include file="$(find autonomous_turtlebot3_swarm)/launch/start_turtlebot3.launch">
+            <arg name="init_pose" value="-x -40.0 -y -40.0 -z 0.0" />
+            <arg name="robot_name" value="robot1" />
+        </include>
+    </group>
+
+    <!-- Start Turtlebot 2 -->
+    <group ns="robot2">
+        <param name="tf_prefix" value="robot2"/>
+        <include file="$(find autonomous_turtlebot3_swarm)/launch/start_turtlebot3.launch">
+            <arg name="init_pose" value="-x -38.0 -y -40.0 -z 0.0" />
+            <arg name="robot_name" value="robot2" />
+        </include>
+    </group>
+
+    <!-- Start Turtlebot 3 -->
+    <group ns="robot3">
+        <param name="tf_prefix" value="robot3"/>
+        <include file="$(find autonomous_turtlebot3_swarm)/launch/start_turtlebot3.launch">
+            <arg name="init_pose" value="-x -36.0 -y -40.0 -z 0.0" />
+            <arg name="robot_name" value="robot3" />
+        </include>
+    </group>
+
+    <!-- Start Turtlebot 4 -->
+    <group ns="robot4">
+        <param name="tf_prefix" value="robot4"/>
+        <include file="$(find autonomous_turtlebot3_swarm)/launch/start_turtlebot3.launch">
+            <arg name="init_pose" value="-x -34.0 -y -40.0 -z 0.0" />
+            <arg name="robot_name" value="robot4" />
+        </include>
+    </group>
 
 </launch>
