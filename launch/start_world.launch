@@ -1,6 +1,6 @@
 <?xml version="1.0"?>
 <launch>
-    <arg name="world_name" default="$(find autonomous_turtlebot3_swarm)/worlds/small_city.world"/>
+    <arg name="world_name" default="$(find autonomous_turtlebot3_swarm)/worlds/urban.world"/>
 
 	<include file="$(find gazebo_ros)/launch/empty_world.launch">
 		<arg name="world_name" value="$(arg world_name)"/>

@@ -1,0 +1,30 @@
+<?xml version="1.0"?>
+
+<launch>
+    
+    <!-- Start World -->
+    <include file="$(find autonomous_turtlebot3_swarm)/launch/start_world.launch">
+    </include>
+
+    <!-- Turtlebot3 Description -->
+    <param name="robot_description" command="$(find xacro)/xacro --inorder $(find turtlebot3_description)/urdf/turtlebot3_waffle.urdf.xacro" />
+    
+    <!-- Start Turtlebot 1 -->
+    <group ns="robot1">
+        <param name="tf_prefix" value="robot1"/>
+        <include file="$(find autonomous_turtlebot3_swarm)/launch/start_turtlebot3.launch">
+            <arg name="init_pose" value="-x 0.5 -y 0.5 -z 0.0" />
+            <arg name="robot_name" value="robot1" />
+        </include>
+    </group>
+
+    <!-- Start Turtlebot 2 -->
+    <group ns="robot2">
+        <param name="tf_prefix" value="robot2"/>
+        <include file="$(find autonomous_turtlebot3_swarm)/launch/start_turtlebot3.launch">
+            <arg name="init_pose" value="-x 0.5 -y 0.0 -z 0.0" />
+            <arg name="robot_name" value="robot2" />
+        </include>
+    </group>
+
+</launch>
