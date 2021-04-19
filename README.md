@@ -60,7 +60,7 @@ catkin_make
 source devel/setup.bash
 ```
 
-5. Install the darknet yolo ross package
+5. Install the darknet yolo ros package
 ```bash
 
 ```
