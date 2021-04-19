@@ -1,4 +1,4 @@
-image: ~/catkin_ws/src/autonomous_turtlebot3_swarm/maps/map.pgm
+image: map.pgm
 resolution: 0.050000
 origin: [-126.800000, -54.800000, 0.000000]
 negate: 0
