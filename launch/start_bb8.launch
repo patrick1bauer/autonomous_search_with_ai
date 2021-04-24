@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<launch>
+    <group ns="bb8">
+        <param name="tf_prefix" value="bb8"/>
+        <param name="robot_description" command="$(find xacro)/xacro '$(find bb_8_description)/urdf/bb_8.xacro'"/>
+        <rosparam file="$(find bb_8_gazebo)/config/bb_8_description_control.yaml" command="load"/>
+
+        <arg name="roll" default="0"/>
+        <arg name="pitch" default="0"/>
+        <arg name="yaw" default="0" />
+
+        <node name="robot_state_publisher_bb_8" pkg="robot_state_publisher" type="robot_state_publisher" respawn="false" output="screen">
+            <param name="publish_frequency" type="double" value="5.0" />
+            <remap from="/joint_states" to="/bb_8/joint_states" />
+        </node>
+
+
+        <node name="controller_spawner" pkg="controller_manager" type="spawner" respawn="false"
+            output="screen" args="--namespace=/bb_8
+                                    joint_state_controller
+                                    direction_joint_position_controller
+                                    head_joint_position_controller
+                                    --shutdown-timeout 3">
+        </node>
+
+        <node name="mybot_spawn" pkg="gazebo_ros" type="spawn_model" output="screen"
+            args="-urdf -param robot_description -model bb_8 -x -15.0 -y -15.0 -z 0.5"
+        />
+    </group>
+</launch>

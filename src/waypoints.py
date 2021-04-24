@@ -158,8 +158,6 @@ class TurtlebotCheckpoints():
         XBound = int(droneSearchArea[2])
         YBound = int(droneSearchArea[3])
 
-
-        
         waypoints = list()
         #return waypoints
         # Loop through the grid to search and create waypoints

@@ -1,0 +1,49 @@
+<?xml version="1.0"?>
+
+<launch>
+    
+    <!-- Start World -->
+    <include file="$(find autonomous_turtlebot3_swarm)/launch/start_world.launch">
+        <arg name="world_name" value="$(find autonomous_turtlebot3_swarm)/worlds/my_small_city.world"/>
+    </include>
+
+    <!-- Turtlebot3 Description -->
+    <param name="robot_description" command="$(find xacro)/xacro --inorder $(find autonomous_turtlebot3_swarm)/urdf/turtlebot3_waffle.urdf.xacro" />
+    
+    <!-- Start Turtlebot 1 -->
+    <group ns="robot1">
+        <param name="tf_prefix" value="robot1"/>
+        <include file="$(find autonomous_turtlebot3_swarm)/launch/start_turtlebot3.launch">
+            <arg name="init_pose" value="-x -40.0 -y -40.0 -z 0.0" />
+            <arg name="robot_name" value="robot1" />
+        </include>
+    </group>
+
+    <!-- Start Turtlebot 2 -->
+    <group ns="robot2">
+        <param name="tf_prefix" value="robot2"/>
+        <include file="$(find autonomous_turtlebot3_swarm)/launch/start_turtlebot3.launch">
+            <arg name="init_pose" value="-x -38.0 -y -40.0 -z 0.0" />
+            <arg name="robot_name" value="robot2" />
+        </include>
+    </group>
+
+    <!-- Start Turtlebot 3 -->
+    <group ns="robot3">
+        <param name="tf_prefix" value="robot3"/>
+        <include file="$(find autonomous_turtlebot3_swarm)/launch/start_turtlebot3.launch">
+            <arg name="init_pose" value="-x -36.0 -y -40.0 -z 0.0" />
+            <arg name="robot_name" value="robot3" />
+        </include>
+    </group>
+
+    <!-- Start Turtlebot 4 -->
+    <group ns="robot4">
+        <param name="tf_prefix" value="robot4"/>
+        <include file="$(find autonomous_turtlebot3_swarm)/launch/start_turtlebot3.launch">
+            <arg name="init_pose" value="-x -34.0 -y -40.0 -z 0.0" />
+            <arg name="robot_name" value="robot4" />
+        </include>
+    </group>
+
+</launch>

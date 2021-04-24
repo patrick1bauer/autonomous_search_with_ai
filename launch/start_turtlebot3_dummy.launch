@@ -1,0 +1,10 @@
+<launch>
+    <!-- Start Target Turtlebot -->
+    <param name="robot_description" command="$(find xacro)/xacro --inorder $(find autonomous_turtlebot3_swarm)/urdf/turtlebot3_burger.urdf.xacro" />
+
+    <node name="spawn_minibot_model" pkg="gazebo_ros" type="spawn_model"
+          args="-x -29.0 -y -29.0 -z 0.0 -urdf -param /robot_description2 -model robot2"
+          respawn="false" output="screen" />
+    <node pkg="robot_state_publisher" type="robot_state_publisher" name="robot_state_publisher" output="screen" />
+
+</launch>
