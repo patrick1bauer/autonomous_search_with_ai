@@ -1,9 +1,9 @@
-# Autonomous Turtlebot3 Swarm
+# Autonomous Search With AI
 
 ## About The Project
 
 UCF Senior Design Project - Sponsored by Lockheed Martin
-An autonomous drone swarm that uses YOLOv3 object detection and SLAM pathfinding to locate and disable a turtlebot
+An autonomous robot that uses YOLOv3 object detection and SLAM pathfinding to locate and identify a bb8 unit
 
 ### Built With
 
@@ -53,39 +53,39 @@ source devel/setup.bash
 ```bash
 cd ~/catkin_ws/src
 git clone https://github.com/chaolmu/gazebo_models_worlds_collection.git
-git clone https://github.com/patrick1bauer/autonomous_turtlebot3_swarm.git
-git clone https://
+git clone https://github.com/patrick1bauer/autonomous_search_with_ai.git
+git clone https://github.com/Tossy0423/darknet_ros.git
 cd ~/catkin_ws
 catkin_make
 source devel/setup.bash
-```
-
-5. Install the darknet yolo ros package
-```bash
-
 ```
 
 ## Usage
 
 Terminal #1: Launch the simulation
 ```bash
-roslaunch autonomous_turtlebot3_swarm start_single.launch
+roslaunch autonomous_search_with_ai start.launch
 ```
 
-Terminal #2: Start the turtlebot3 navigation 
+Terminal #2: Spawn the bb8 unit
 ```bash
-rosrun autonomous_turtlebot3_swarm turtlebot3_navigation.launch
+roslaunch autonomous_search_with_ai start_bb8.launch
 ```
 
-Terminal #3: Start the autonomous turtlebot3
+Terminal #3: Start the turtlebot3 navigation 
 ```bash
-cd ~/catkin_ws/src/autonomous_turtlebot3_swarm/src
-python3 waypoints.py
+rosrun autonomous_search_with_ai turtlebot3_navigation.launch
 ```
 
 Terminal #4: Start the object detection
 ```bash
-roslaunch autonomous_turtlebot3_swarm yolo_v3.launch
+roslaunch autonomous_search_with_ai yolo_v3.launch
+```
+
+Terminal #5: Start the autonomous turtlebot3
+```bash
+cd ~/catkin_ws/src/autonomous_search_with_ai/src
+python3 waypoints.py
 ```
 
 ## Common Issues
@@ -105,7 +105,7 @@ source devel/setup.bash
 
 ## Roadmap
 
-See the [open issues](https://github.com/patrick1bauer/autonomous_turtlebot3_swarm/issues) for a list of proposed features (and known issues).
+See the [open issues](https://github.com/patrick1bauer/autonomous_search_with_ai/issues) for a list of proposed features (and known issues).
 
 ## Contributing
 
@@ -119,16 +119,16 @@ Contributions are what make the open source community such an amazing place to b
 
 ## Authors
 
-Patrick Bauer - Team Lead - patrick1bauer@gmail.com
+Patrick Bauer - Team Lead / Simulation Environment / Navigation - patrick1bauer@gmail.com
 
-Nathanel Casagnol - SLAM / Navigation
+Pablo Trivino - Object Detection / Robot Sensors
 
-Noah Avizemer - SLAM / Navigation
+Mark Pedroso - Object Detection / AI Training
 
-Mark Pedroso - YOLO / Object Detection
+Noah Avizemer - Simulation Environment / Mapping
 
-Pablo Trivino - YOLO / Object Detection
+Nathanel Casagnol - Navigation
 
 ## License
 
-[GPLv3](https://github.com/patrick1bauer/autonomous_drone_swarm/blob/main/LICENSE)
+[GPLv3](https://github.com/patrick1bauer/autonomous_search_with_ai/blob/main/LICENSE)
