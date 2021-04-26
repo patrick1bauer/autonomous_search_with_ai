@@ -3,6 +3,7 @@
 ## About The Project
 
 UCF Senior Design Project - Sponsored by Lockheed Martin
+
 An autonomous robot that uses YOLOv3 object detection and SLAM pathfinding to locate and identify a bb8 unit
 
 ### Built With
